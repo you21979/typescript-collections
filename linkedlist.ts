@@ -1,5 +1,3 @@
-///<reference path='node.d'/>
-import assert = module('assert');
 export interface INode{
     next:INode;
     prev:INode;
@@ -8,8 +6,8 @@ function is_linked(node:INode):bool{
     return node.next || this.prev ? true : false; 
 }
 function after_insert(linked:INode,unlinked:INode):void{
-    assert.ok(is_linked(unlinked) === false, 'AfterInsert:linked node');
-    assert.ok(linked !== unlinked, 'AfterInsert:Same node');
+    if(is_linked(unlinked)){throw new Error('AfterInsert:linked node');}
+    if(linked === unlinked){throw new Error('AfterInsert:Same node');}
     if(linked.next){
         linked.next.prev = unlinked;
         unlinked.next = linked.next;
@@ -18,8 +16,8 @@ function after_insert(linked:INode,unlinked:INode):void{
     unlinked.prev = linked;
 }
 function before_insert(linked:INode,unlinked:INode):void{
-    assert.ok(is_linked(unlinked) === false, 'BeforeInsert:linked node');
-    assert.ok(linked !== unlinked, 'BeforeInsert:Same node');
+    if(is_linked(unlinked)){throw new Error('BeforeInsert:linked node');}
+    if(linked === unlinked){throw new Error('BeforeInsert:Same node');}
     if(linked.prev){
         linked.prev.next = unlinked;
         unlinked.prev = linked.prev;
