@@ -28,12 +28,14 @@ function before_insert(linked:INode,unlinked:INode):void{
 function unlink(linked:INode):void{
     if(linked.prev){
         linked.prev.next = linked.next;
-        linked.prev = null;
+        
     }
     if(linked.next){
         linked.next.prev = linked.prev;
-        linked.next = null;
+        
     }
+    linked.prev = undefined;
+    linked.next = undefined;
 }
 export class Node implements INode{
     public next:INode = null;
